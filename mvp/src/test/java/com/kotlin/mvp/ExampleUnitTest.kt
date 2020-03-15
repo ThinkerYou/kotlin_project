@@ -2,8 +2,6 @@ package com.kotlin.mvp
 
 import org.junit.Test
 
-import org.junit.Assert.*
-
 /**
  * Example local unit test, which will execute on the development machine (host).
  *
@@ -12,6 +10,22 @@ import org.junit.Assert.*
 class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+        val outer = Outer()
+        val inner =  outer::inner
     }
+}
+class Outer{
+   inner class inner{
+    }
+}
+
+class Foo
+fun function(factory:()->Foo){
+    val x :Foo = factory()
+}
+
+var x = 1;
+fun isOdd(x:Int)= x%2!=0
+fun <A,B,C>compose(f:(B)->C,g:(A)->B):(A)->C{
+    return {x->f(g(x))}
 }

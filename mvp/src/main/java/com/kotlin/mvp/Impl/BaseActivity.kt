@@ -65,6 +65,10 @@ abstract class BaseActivity<Presenter: BasePresenter<BaseActivity<Presenter>>> :
         presenter.onConfigurationChanged(newConfig)
     }
 
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        presenter.onViewStateRestored(savedInstanceState)
+    }
+
     override fun onStart() {
         super.onStart()
         presenter.onStart()
@@ -89,4 +93,5 @@ abstract class BaseActivity<Presenter: BasePresenter<BaseActivity<Presenter>>> :
         super.onDestroy()
         presenter.onDestroy()
     }
+
 }

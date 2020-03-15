@@ -10,9 +10,11 @@ class Preference<T>(val context: Context, val name:String,val default:T,val preN
         context.getSharedPreferences(preName, Context.MODE_PRIVATE)
     }
     override fun getValue(thisRef: Any?, property: KProperty<*>): T {
-          return findPreference(name)
+          return findPreference(findPropertyName(property))
 
     }
+
+    private fun findPropertyName(property:KProperty<*>)= if(name.isEmpty()) property.name else name
 
     private fun findPreference(key:String): T {
        return when (default) {
@@ -25,7 +27,7 @@ class Preference<T>(val context: Context, val name:String,val default:T,val preN
     }
 
     override fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
-        putPreferty(name,value)
+        putPreferty(findPropertyName(property),value)
     }
 
     private fun putPreferty(key:String,value: T) {
