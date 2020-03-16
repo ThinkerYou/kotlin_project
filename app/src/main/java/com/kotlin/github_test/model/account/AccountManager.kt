@@ -8,9 +8,9 @@ import com.kotlin.github_test.network.services.Authservice
 import com.kotlin.github_test.network.services.UserService
 import com.kotlin.github_test.util.fromJson
 import com.kotlin.github_test.util.prop
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.schedulers.Schedulers
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
 
 interface OnAccountStateChanged{

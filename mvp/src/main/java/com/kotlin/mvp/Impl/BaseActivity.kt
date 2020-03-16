@@ -15,7 +15,7 @@ abstract class BaseActivity<Presenter: BasePresenter<BaseActivity<Presenter>>> :
     override val presenter: Presenter
 
     init{
-        presenter = createPresentKt()
+        presenter = createPresenterJava()
         presenter.view = this
     }
 
