@@ -1,8 +1,8 @@
 package com.kotlin.mvp.Impl
+import android.app.Fragment
 import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import com.kotlin.mvp.IMVpView
 import com.kotlin.mvp.IPresenter
 import java.lang.reflect.ParameterizedType
@@ -11,7 +11,7 @@ import kotlin.reflect.full.isSuperclassOf
 import kotlin.reflect.full.primaryConstructor
 import kotlin.reflect.jvm.jvmErasure
 
-abstract class BaseFragment<out P:BasePresenter<BaseFragment<P>>> :IMVpView<P>,Fragment(){
+abstract class BaseFragment<out P:BasePresenter<BaseFragment<P>>> :IMVpView<P>, Fragment(){
 
     override val presenter: P
 

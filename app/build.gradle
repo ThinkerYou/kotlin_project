@@ -5,15 +5,18 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion rootProject.compileSdkVersion
+
     defaultConfig {
         applicationId "com.kotlin.github_test"
-        minSdkVersion 21
-        targetSdkVersion 29
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
+    compileOptions rootProject.compileOptions
+
     buildTypes {
         release {
             minifyEnabled false
@@ -34,6 +37,7 @@ dependencies {
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
     implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
     implementation 'com.google.code.gson:gson:2.8.6'
+    implementation "com.android.support:appcompat-v7:$appcompat_version"
     testImplementation 'junit:junit:4.12'
     implementation project(':common')
     implementation project(':mvp')

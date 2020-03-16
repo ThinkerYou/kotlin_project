@@ -1,12 +1,8 @@
 package com.kotlin.github_test.network.entities
 
-import android.os.Parcel
-import android.os.Parcelable
 import com.kotlin.common.anno.PoKo
-import kotlinx.android.parcel.Parcelize
 
 @PoKo
-@Parcelize
 data class BasicUser(var login:String,
                      var id :Int,
                      var node_id:String,
@@ -15,7 +11,6 @@ data class BasicUser(var login:String,
                      var url:String,
                      var html_url:String)
 @PoKo
-@Parcelize
 data class User(var login:String,
                 var id :Int,
                 var node_id:String,
