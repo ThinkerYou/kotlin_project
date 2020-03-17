@@ -7,8 +7,8 @@ import com.kotlin.github_test.util.deviceId
 object Configs{
     object Account{
         val SCOPS= listOf("user","repo","notification","gist","admin:org")
-        const val clientId = "38b54ba3d68340782756"
-        const val clientSecret="52a5f25371118ae23e48ebdfb747184cbf399564"
+        const val clientId = "d3d3dd9bc2e926b07287"
+        const val clientSecret="fd3e311a2d17daeade449e17c7f14cbe50c05fb7"
         const val note="kotliner"
         const val noteUrl="https://www.kotliner.cn"
 

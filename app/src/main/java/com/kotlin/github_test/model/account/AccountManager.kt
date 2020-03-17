@@ -65,8 +65,6 @@ object AccountManager {
     fun isLogin(): Boolean = token.isEmpty()
 
     fun login() = Authservice.createAuthorization(AuthorizationReq())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribeOn(Schedulers.io())
         .doOnNext {
             if (it.token.isEmpty())
                 throw AccountException(it)
@@ -85,10 +83,10 @@ object AccountManager {
             currentUser = it
             notifyLogin(it)
         }
-
-    fun logout() = Authservice.deleteAuthorization(authId)
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.io())
+
+    fun logout() = Authservice.deleteAuthorization(authId)
         .doOnNext {
             if (it.isSuccessful) {
                 token = ""
@@ -99,6 +97,8 @@ object AccountManager {
                 throw HttpException(it)
             }
         }
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribeOn(Schedulers.io())
 
     class AccountException(val authorizationReq: AuthorizationRsp) : Exception("Already login in.")
 }

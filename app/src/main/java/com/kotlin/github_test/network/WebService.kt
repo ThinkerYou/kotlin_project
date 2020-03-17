@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 import java.util.concurrent.TimeUnit
 
-private const val BASE_URL = "http://api.github.com"
+private const val BASE_URL = "https://api.github.com"
 
 private val cacheFile by lazy{
     File(AppContext.cacheDir,"webServiceApi").apply { ensureDir() }
