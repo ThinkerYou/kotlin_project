@@ -1,5 +1,6 @@
 package com.kotlin.github_test.presenter
 
+import com.kotlin.github_test.BuildConfig
 import com.kotlin.github_test.model.account.AccountManager
 import com.kotlin.github_test.ui.login.LoginActivity
 import com.kotlin.mvp.Impl.BasePresenter
@@ -27,6 +28,9 @@ class LoginPresenter:BasePresenter<LoginActivity>(){
 
     override fun onResume() {
         super.onResume()
-        view.dataInit(AccountManager.password,AccountManager.username)
+        if(BuildConfig.DEBUG){
+            view.dataInit(BuildConfig.testPassword,BuildConfig.testUserName)
+        }else{
+        view.dataInit(AccountManager.password,AccountManager.username)}
     }
 }
