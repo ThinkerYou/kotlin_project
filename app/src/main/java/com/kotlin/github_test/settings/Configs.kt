@@ -6,16 +6,14 @@ import com.kotlin.github_test.util.deviceId
 
 object Configs{
     object Account{
-        val SCOPS= listOf("user","repo","notification","gist","admin:org")
+        val SCOPES= listOf("user","repo","notifications","gist","admin:org")
         const val clientId = "d3d3dd9bc2e926b07287"
         const val clientSecret="fd3e311a2d17daeade449e17c7f14cbe50c05fb7"
         const val note="kotliner"
         const val noteUrl="https://www.kotliner.cn"
 
         val fingerPrint by lazy{
-            (AppContext.deviceId + clientId).also {
-                logger.info("fingerPrint:"+it)
-            }
+            (AppContext.deviceId + clientId).also { logger.info("fingerPrint:"+it) }
         }
     }
 

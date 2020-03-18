@@ -5,24 +5,23 @@ import com.kotlin.github_test.model.account.AccountManager
 import okhttp3.Interceptor
 import okhttp3.Response
 
-class AuthInterceptor:Interceptor{
+class AuthInterceptor: Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
-        var origin = chain.request()
-      return  chain.proceed(origin.newBuilder().apply {
-            when{
-                origin.url.pathSegments.contains("authorizations")->{
-                    val userCredentials= AccountManager.username+":"+ AccountManager.password
-                    val auth = "Basic"+ String(Base64.encode(userCredentials.toByteArray(),Base64.DEFAULT)).trim()
-                    header("Authorization",auth)
-                }
-
-                AccountManager.isLogin()->{
-                    val auth = "Token" + AccountManager.token
-                    header("authorization",auth)
-                }
-                else ->removeHeader("Authorization")
-            }
-        }.build())
+        val original = chain.request()
+        return chain.proceed(original.newBuilder()
+                .apply {
+                    when{
+                        original.url.pathSegments.contains("authorizations") ->{
+                            val userCredentials = AccountManager.username + ":" + AccountManager.password
+                            val auth = "Basic " + String(Base64.encode(userCredentials.toByteArray(), Base64.DEFAULT)).trim()
+                            header("Authorization", auth)
+                        }
+                        AccountManager.isLogin() ->{
+                            val auth = "Token " + AccountManager.token
+                            header("Authorization", auth)
+                        }
+                        else -> removeHeader("Authorization")
+                    }
+                }.build())
     }
-
 }

@@ -22,8 +22,9 @@ val retrofit by lazy{
     Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .client(OkHttpClient.Builder()
-            .connectTimeout(60,TimeUnit.SECONDS)
+        .client(
+            OkHttpClient.Builder()
+            .connectTimeout(60, TimeUnit.SECONDS)
             .writeTimeout(60,TimeUnit.SECONDS)
             .readTimeout(60,TimeUnit.SECONDS)
             .cache(Cache(cacheFile,1024*1024*1024))

@@ -4,8 +4,9 @@ import com.google.gson.Gson
 import com.kotlin.github_test.network.entities.AuthorizationReq
 import com.kotlin.github_test.network.entities.AuthorizationRsp
 import com.kotlin.github_test.network.entities.User
-import com.kotlin.github_test.network.services.Authservice
+import com.kotlin.github_test.network.services.AuthService
 import com.kotlin.github_test.network.services.UserService
+
 import com.kotlin.github_test.util.fromJson
 import com.kotlin.github_test.util.prop
 import io.reactivex.Observable
@@ -64,14 +65,14 @@ object AccountManager {
 
     fun isLogin(): Boolean = token.isEmpty()
 
-    fun login() = Authservice.createAuthorization(AuthorizationReq())
+    fun login() =
+        AuthService.createAuthorization(AuthorizationReq())
         .doOnNext {
-            if (it.token.isEmpty())
-                throw AccountException(it)
+            if (it.token.isEmpty()) throw AccountException(it)
         }.retryWhen {
             it.flatMap {
                 if (it is AccountException) {
-                    Authservice.deleteAuthorization(it.authorizationReq.id)
+                    AuthService.deleteAuthorization(it.authorizationRsq.id)
                 } else
                     Observable.error(it)
             }
@@ -86,7 +87,7 @@ object AccountManager {
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.io())
 
-    fun logout() = Authservice.deleteAuthorization(authId)
+    fun logout() = AuthService.deleteAuthorization(authId)
         .doOnNext {
             if (it.isSuccessful) {
                 token = ""
@@ -100,5 +101,5 @@ object AccountManager {
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.io())
 
-    class AccountException(val authorizationReq: AuthorizationRsp) : Exception("Already login in.")
+    class AccountException(val authorizationRsq: AuthorizationRsp) : Exception("Already login in.")
 }

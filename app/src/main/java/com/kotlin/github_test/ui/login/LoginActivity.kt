@@ -3,13 +3,11 @@ package com.kotlin.github_test.ui.login
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.*
 import com.kotlin.common.ext.otherWise
 import com.kotlin.common.ext.yes
 import com.kotlin.github_test.R
-import com.kotlin.github_test.network.entities.AuthorizationReq
 import com.kotlin.github_test.presenter.LoginPresenter
 import com.kotlin.github_test.util.hideSoftInput
 import com.kotlin.mvp.Impl.BaseActivity
@@ -25,19 +23,18 @@ class LoginActivity : BaseActivity<LoginPresenter>() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         signInButton.setOnClickListener(){
-            presenter.checkUserName(username.text.toString()).yes {
-                presenter.checkPassword(password.text.toString())
+                presenter.checkUserName(username.text.toString())
                     .yes {
-                        hideSoftInput()
-                        val authorizationReq = AuthorizationReq::class.java.newInstance()
-                        Log.i("signInButton:",authorizationReq.toString())
-                        presenter.doLogin(username.text.toString(),password.text.toString())
+                        presenter.checkPassword(password.text.toString())
+                            .yes {
+                                hideSoftInput()
+                                presenter.doLogin(username.text.toString(),password.text.toString())
+                            }.otherWise {
+                                showTips(password,"密码不合法")
+                            }
                     }.otherWise {
-                        showTips(password,"密码不合法")
+                        showTips(username,"用户名不合法")
                     }
-            }.otherWise {
-                showTips(username,"用户名不合法")
-            }
         }
     }
 

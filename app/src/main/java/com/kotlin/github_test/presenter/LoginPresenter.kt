@@ -1,5 +1,6 @@
 package com.kotlin.github_test.presenter
 
+import android.annotation.SuppressLint
 import com.kotlin.github_test.BuildConfig
 import com.kotlin.github_test.model.account.AccountManager
 import com.kotlin.github_test.ui.login.LoginActivity
@@ -7,11 +8,13 @@ import com.kotlin.mvp.Impl.BasePresenter
 
 class LoginPresenter:BasePresenter<LoginActivity>(){
 
-    fun doLogin(userName:String,password:String){
+    @SuppressLint("CheckResult")
+    fun doLogin(userName:String, password:String){
         AccountManager.username  = userName
         AccountManager.password = password
         view.loginStart()
-        AccountManager.login().subscribe({
+        AccountManager.login()
+            .subscribe({
             view.loginSuccess()
         },{
             view.loginError(it)
