@@ -1,2 +1,2 @@
 include ':app', ':common', ':mvp'
-rootProject.name='Github'
+rootProject.name='Kothub'
